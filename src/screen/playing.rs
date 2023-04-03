@@ -1,5 +1,3 @@
-use nannou::color::white_point::E;
-
 use super::*;
 
 pub struct Playing {

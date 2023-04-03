@@ -85,24 +85,24 @@ impl Settings {
     pub fn pressed(&mut self, app: &App, state: &mut State, k: Key) {
         match k {
             k @ _ if self.choosing => {
-                state.play(Sound::UiSwitch, 1.0);
+                state.play(Sound::UiSwitch, 0.75);
                 state.storage.hotkeys[self.n] = k as u32;
                 self.choosing = false;
             }
             Key::Up if self.n > 0 => {
-                state.play(Sound::UiSwitch, 1.0);
+                state.play(Sound::UiSwitch, 0.75);
                 self.n -= 1;
             }
             Key::Down if self.n < state.storage.hotkeys.len() - 1 => {
-                state.play(Sound::UiSwitch, 1.0);
+                state.play(Sound::UiSwitch, 0.75);
                 self.n += 1;
             }
             Key::Space => {
-                state.play(Sound::UiSwitch, 1.0);
+                state.play(Sound::UiSwitch, 0.75);
                 self.choosing = true;
             }
             Key::Escape | Key::S => {
-                state.play(Sound::UiSwitch, 1.0);
+                state.play(Sound::UiSwitch, 0.75);
                 state.storage.save();
                 self.next = Some(Box::new(Screen::Menu(Menu::new(state))));
             }

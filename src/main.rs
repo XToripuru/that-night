@@ -1,4 +1,4 @@
-//#![windows_subsystem = "windows"]
+#![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 #![allow(warnings)]
 mod context;
 mod game;
@@ -8,7 +8,7 @@ mod storage;
 
 use re::*;
 
-pub static VERSION: &str = "1.1.0";
+pub static VERSION: &str = "1.1.1";
 
 fn main() {
     Context::run();
