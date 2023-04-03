@@ -8,7 +8,7 @@ mod storage;
 
 use re::*;
 
-pub static VERSION: &str = "1.1.1";
+pub static VERSION: &str = "1.1.2";
 
 fn main() {
     Context::run();

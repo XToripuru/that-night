@@ -17,7 +17,8 @@ impl Context {
     }
     pub fn new(app: &App) -> Self {
         app.new_window()
-            .fullscreen()
+            .size(0, 0)
+            .decorations(false)
             .title("That Night")
             .key_pressed(Context::pressed)
             .key_released(Context::released)
@@ -30,6 +31,8 @@ impl Context {
         let (w, h) = app.main_window().inner_size_pixels();
 
         let (stream, sout) = OutputStream::try_default().unwrap();
+
+        app.main_window().set_fullscreen(true);
 
         Self {
             state: State {
