@@ -44,7 +44,7 @@ impl Context {
                 h: h as f32,
                 stream,
                 sout,
-                sounds: sounds()
+                sounds: sounds(),
             },
             frames: 0,
             last: Instant::now(),
@@ -163,23 +163,23 @@ pub struct State {
     pub h: f32,
     stream: OutputStream,
     sout: OutputStreamHandle,
-    sounds: Vec<Cursor<Vec<u8>>>
+    sounds: Vec<Cursor<Vec<u8>>>,
 }
 
 impl State {
     pub fn play(&self, sound: Sound, v: f32) {
         let s = self
-        .sout
-        .play_once(self.sounds[sound as usize].clone())
-        .expect("Can't play sound");
+            .sout
+            .play_once(self.sounds[sound as usize].clone())
+            .expect("Can't play sound");
         s.set_volume(v);
         s.detach();
     }
     pub fn play_get(&self, sound: Sound, v: f32) -> Sink {
         let s = self
-        .sout
-        .play_once(self.sounds[sound as usize].clone())
-        .expect("Can't play sound");
+            .sout
+            .play_once(self.sounds[sound as usize].clone())
+            .expect("Can't play sound");
         s.set_volume(v);
         s
     }
@@ -198,32 +198,23 @@ pub enum Screen {
 pub const SOUNDS: [Sound; 19] = [
     Sound::Intro,
     Sound::Ambient,
-
     Sound::UiSwitch,
-
     Sound::LowFood,
-
     Sound::UseAmmo,
     Sound::UseBomb,
     Sound::UseTurret,
     Sound::UseEmp,
-
     Sound::PickChest,
-
     Sound::BombExplosion,
     Sound::BombTick,
     Sound::TurretShoot,
-
     Sound::ZombieHit,
     Sound::ZombieDeath,
-
     Sound::BossAppear,
-
     Sound::Upgrade,
     Sound::Defeat,
-
     Sound::Walking,
-    Sound::Running
+    Sound::Running,
 ];
 
 #[derive(Debug, Clone, Copy)]
@@ -256,7 +247,7 @@ pub enum Sound {
     Defeat,
 
     Walking,
-    Running
+    Running,
 }
 
 pub trait SinkExt {
@@ -267,8 +258,8 @@ impl SinkExt for Sink {
     fn fade(self, dur: u64) {
         spawn(move || {
             let current = self.volume();
-            let inv = 1.0 / (dur/20) as f32;
-            for k in 0..dur/20 {
+            let inv = 1.0 / (dur / 20) as f32;
+            for k in 0..dur / 20 {
                 self.set_volume(current - k as f32 * inv * current);
                 sleep(Duration::from_millis(20));
             }
@@ -277,8 +268,7 @@ impl SinkExt for Sink {
 }
 
 fn font() -> Font {
-    Font::from_bytes(include_bytes!("../assets/m5x7.ttf"))
-    .expect("Invalid font format")
+    Font::from_bytes(include_bytes!("../assets/m5x7.ttf")).expect("Invalid font format")
 }
 
 fn sounds() -> Vec<Cursor<Vec<u8>>> {
@@ -302,7 +292,7 @@ fn sounds() -> Vec<Cursor<Vec<u8>>> {
         &include_bytes!("../assets/Upgrade.wav")[..],
         &include_bytes!("../assets/Defeat.wav")[..],
         &include_bytes!("../assets/Walking.mp3")[..],
-        &include_bytes!("../assets/Running.mp3")[..]
+        &include_bytes!("../assets/Running.mp3")[..],
     ] {
         r.push(Cursor::new(Vec::from(&bytes[..])));
     }
